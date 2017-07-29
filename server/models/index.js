@@ -13,9 +13,7 @@ module.exports = {
       });
     }, // a function which produces all the messages
     post: function (message, callback) {
-      console.log(message, 'Message');
       var queryString = `INSERT INTO messages (user, text, roomname) VALUES (${message.username}, ${message.message}, ${message.roomname})`;
-      console.log(queryString, 'STRING');
       db.query(queryString, function(err, results) {
         if (err) {
           throw err;
@@ -28,8 +26,26 @@ module.exports = {
 
   users: {
     // Ditto as above.
-    get: function () {},
-    post: function () {}
+    get: function (callback) {
+      var queryString = 'SELECT * FROM users';
+      db.query(queryString, function(err, results) {
+        if (err) {
+          throw err;
+        } else {
+          callback(err, results);
+        }
+      });
+    },
+    post: function (user, callback) {
+      var queryString = `INSERT INTO users (username) VALUES (${user.username})`;
+      db.query(queryString, function(err, results) {
+        if (err) {
+          throw err;
+        } else {
+          callback(err, results);
+        }
+      });
+    }
   }
 };
 

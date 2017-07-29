@@ -1,8 +1,9 @@
-var router = require('../server/routes.js');
 
 var app = {
 
-  server: 'http://127.0.0.1:3000/messages',
+  //TODO: The current 'handleUsernameClick' function just toggles the class 'friend'
+  //to all messages sent by the user
+  server: 'https//127.0.0.1:3000/classes/messages',
   username: 'anonymous',
   roomname: 'lobby',
   lastMessageId: 0,
@@ -45,6 +46,7 @@ var app = {
       success: function (data) {
         // Clear messages input
         app.$message.val('');
+
         // Trigger a fetch to update the messages, pass true to animate
         app.fetch();
       },
@@ -54,8 +56,7 @@ var app = {
     });
   },
 
-  fetchAllMessages: function(animate) {
-    // router.get('/messages', controller.messages.get);
+  fetch: function(animate) {
     $.ajax({
       url: app.server,
       type: 'GET',

@@ -12,6 +12,7 @@ CREATE TABLE messages (
 
 /* Create other tables and define schemas for them here! */
 CREATE TABLE users (
+  id integer NOT NULL PRIMARY KEY AUTO_INCREMENT
   username varchar(32) NOT NULL PRIMARY KEY
 );
 

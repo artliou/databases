@@ -14,30 +14,33 @@ module.exports = {
       models.messages.get(function(err, data) {
         if (err) {
           statusCode = 404;
-          response.writeHead(statusCode, headers);
-          response.end('Server Error - Data Not Received');
+          res.writeHead(statusCode, headers);
+          res.end('Server Error - Data Not Received');
         } else {
           statusCode = 200;
-          response.writeHead(statusCode, headers);
-          response.end(JSON.stringify(data));
+          res.writeHead(statusCode, headers);
+          res.end(JSON.stringify(data));
         }
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      
+      // console.log(req);
+      // console.log(req.body);
       var message = {
-        json: req.json
+        username: req.query.username,
+        message: req.query.message,
+        roomname: req.query.roomname
       };
       
       models.messages.post(message, function(err, data) {
         if (err) {
           statusCode = 404;
-          response.writeHead(statusCode, headers);
-          response.end('Server Error - Data Not Received');
+          res.writeHead(statusCode, headers);
+          res.end('Server Error - Data Not Received');
         } else {      
           statusCode = 201;
-          response.writeHead(statusCode, headers);
-          response.end('Posted!');
+          res.writeHead(statusCode, headers);
+          res.end('Posted!');
         }
       });
     } // a function which handles posting a message to the database
@@ -45,8 +48,37 @@ module.exports = {
 
   users: {
     // Ditto as above
-    get: function (req, res) {},
-    post: function (req, res) {}
+    get: function (req, res) {
+      models.users.get(function(err, data) {
+        if (err) {
+          statusCode = 404;
+          res.writeHead(statusCode, headers);
+          res.end('Server Error - Data Not Received');
+        } else {
+          statusCode = 200;
+          res.writeHead(statusCode, headers);
+          res.end(JSON.stringify(data));
+        }
+      });
+    },
+    post: function (req, res) {
+
+      var user = {
+        username: req.query.username
+      };
+      
+      models.users.post(user, function(err, data) {
+        if (err) {
+          statusCode = 404;
+          res.writeHead(statusCode, headers);
+          res.end('Server Error - Data Not Received');
+        } else {
+          statusCode = 201;
+          res.writeHead(statusCode, headers);
+          res.end('Posted!');
+        }
+      });
+    }
   }
 };
 
