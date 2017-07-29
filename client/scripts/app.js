@@ -1,14 +1,13 @@
+var router = require('../server/routes.js');
 
 var app = {
 
-  //TODO: The current 'handleUsernameClick' function just toggles the class 'friend'
-  //to all messages sent by the user
-  server: 'http://parse.CAMPUS.hackreactor.com/chatterbox/classes/messages',
+  server: 'http://127.0.0.1:3000/messages',
   username: 'anonymous',
   roomname: 'lobby',
   lastMessageId: 0,
   friends: {},
-  messages: [],
+  // messages: [],
 
   init: function() {
     // Get username
@@ -46,7 +45,6 @@ var app = {
       success: function (data) {
         // Clear messages input
         app.$message.val('');
-
         // Trigger a fetch to update the messages, pass true to animate
         app.fetch();
       },
@@ -56,7 +54,8 @@ var app = {
     });
   },
 
-  fetch: function(animate) {
+  fetchAllMessages: function(animate) {
+    // router.get('/messages', controller.messages.get);
     $.ajax({
       url: app.server,
       type: 'GET',

@@ -1,4 +1,4 @@
-var db = require('./db');
+var db = require('../db');
 
 module.exports = {
   messages: {
@@ -8,7 +8,7 @@ module.exports = {
         if (err) {
           throw err;
         } else {
-          callback(results);
+          callback(err, results);
         }
       });
     }, // a function which produces all the messages
@@ -16,6 +16,13 @@ module.exports = {
       console.log(message, 'Message');
       var queryString = `INSERT INTO messages (user, text, roomname) VALUES (${message.username}, ${message.message}, ${message.roomname})`;
       console.log(queryString, 'STRING');
+      db.query(queryString, function(err, results) {
+        if (err) {
+          throw err;
+        } else {
+          callback(err, results);
+        }
+      });
     } // a function which can be used to insert a message into the database
   },
 
