@@ -1,10 +1,11 @@
+DROP DATABASE if exists chat;
 CREATE DATABASE chat;
 
 USE chat;
 
 CREATE TABLE messages (
   id integer NOT NULL AUTO_INCREMENT,
-  `text` varchar(32),
+  text varchar(32),
   user varchar(32),
   roomname varchar(32),
   PRIMARY KEY (id)
@@ -12,11 +13,11 @@ CREATE TABLE messages (
 
 /* Create other tables and define schemas for them here! */
 CREATE TABLE users (
-  id integer NOT NULL PRIMARY KEY AUTO_INCREMENT
-  username varchar(32) NOT NULL PRIMARY KEY
+  id integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  username varchar(32)
 );
 
-INSERT INTO messages (`text`, user, roomname) VALUES ('Hi', 'Easak', 'Main');
+INSERT INTO messages (text, user, roomname) VALUES ('Hi', 'Easak', 'Main');
 
 
 /*  Execute this file from the command line by typing:

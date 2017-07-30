@@ -6,6 +6,7 @@ module.exports = {
       var queryString = 'SELECT * FROM messages';
       db.query(queryString, function(err, results) {
         if (err) {
+          console.log(err, "messages, models");
           throw err;
         } else {
           callback(err, results);
@@ -14,8 +15,10 @@ module.exports = {
     }, // a function which produces all the messages
     post: function (message, callback) {
       var queryString = `INSERT INTO messages (user, text, roomname) VALUES (${message.username}, ${message.message}, ${message.roomname})`;
+      console.log(queryString);
       db.query(queryString, function(err, results) {
         if (err) {
+          console.log(err, "messages, post");
           throw err;
         } else {
           callback(err, results);
@@ -30,6 +33,7 @@ module.exports = {
       var queryString = 'SELECT * FROM users';
       db.query(queryString, function(err, results) {
         if (err) {
+          console.log(err, "users");
           throw err;
         } else {
           callback(err, results);
@@ -37,9 +41,12 @@ module.exports = {
       });
     },
     post: function (user, callback) {
+      console.log('user POST', user);
       var queryString = `INSERT INTO users (username) VALUES (${user.username})`;
       db.query(queryString, function(err, results) {
         if (err) {
+          console.log(err, "USER MODELS");
+
           throw err;
         } else {
           callback(err, results);
